@@ -30,6 +30,7 @@
 .Languages table {
 	border: 1px solid #74c293;
 	border-top: none;
+	box-shadow: 0 1px 0 #74c293;
 	border-collapse: collapse;
 	width: 100%;
 }
