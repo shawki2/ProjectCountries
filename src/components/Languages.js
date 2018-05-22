@@ -31,7 +31,7 @@ class Languages extends Component {
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="3">Total Languages: ???</td>
+							<td colSpan="3">Total Languages: ???</td>
 						</tr>
 					</tfoot>
 				</table>

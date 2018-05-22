@@ -31,7 +31,7 @@ class Population extends Component {
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="3">Total Population: ???</td>
+							<td colSpan="3">Total Population: ???</td>
 						</tr>
 					</tfoot>
 				</table>

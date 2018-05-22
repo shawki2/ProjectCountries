@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import Statistics from './components/Statistics';
 import Languages from './components/Languages';
 import Population from './components/Population';
-import people from './data/people';
+import members from './data/members';
 import './App.css';
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      people: people,
+      members: members,
     };
   }
 
