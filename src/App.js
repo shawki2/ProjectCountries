@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import Languages from './components/Languages';
+import people from './data/people';
 import './App.css';
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      balance: 87.43,
+      people: people,
     };
   }
 
@@ -13,8 +15,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Title</h1>
+          <h1 className="App-title">Community Member Countries</h1>
         </header>
+        <Languages />
       </div>
     );
   }
