@@ -25,9 +25,13 @@ class Population extends Component {
             population: countryInfo.population
           };
         });
-
+        let totalPopulation = 0;
+        for (var i = 0; i < membersMatching.length; i++) {
+          totalPopulation += membersMatching[i].population;
+        }
         this.setState({
-          statisticsList: membersMatching
+          statisticsList: membersMatching,
+          total: totalPopulation
         });
       });
   }
@@ -57,7 +61,7 @@ class Population extends Component {
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan="3">Total Population: </td>
+              <td colSpan="3">Total Population: {this.state.total}</td>
             </tr>
           </tfoot>
         </table>
