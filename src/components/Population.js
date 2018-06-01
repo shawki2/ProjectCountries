@@ -19,10 +19,17 @@ class Population extends Component {
             serverResult => result.country === serverResult.name
           );
 
+          let countryName = "";
+          if (countryInfo === undefined) {
+            countryName = "Country Not Found";
+          } else {
+            countryName = countryInfo.population;
+          }
+
           return {
             name: result.name,
             country: result.country,
-            population: countryInfo.population
+            population: countryName
           };
         });
         let totalPopulation = 0;
