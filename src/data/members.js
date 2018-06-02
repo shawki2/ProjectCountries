@@ -3,7 +3,7 @@ const people = [
 		name: 'Mozafar',
 		country: 'Sudan',
 	},
-	{
+	{ 
 		name: 'Daniel',
 		country: 'United Kingdom',
 	},
