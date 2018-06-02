@@ -1,47 +1,41 @@
 import React, { Component } from "react";
 import "./Population.css";
 import members from "../data/members";
-
-class Population extends Component {
+import Cache from "./Cache";
+class Population extends Cache {
   constructor() {
     super();
-    this.state = {
-      statisticsList: []
-    };
-
-    fetch("https://restcountries.eu/rest/v2/")
-      .then(data => {
-        return data.json();
-      })
-      .then(serverStatistics => {
-        const membersMatching = members.map(result => {
-          const countryInfo = serverStatistics.find(
-            serverResult => result.country === serverResult.name
-          );
-
-          let countryName = "";
-          if (countryInfo === undefined) {
-            countryName = "Country Not Found";
-          } else {
-            countryName = countryInfo.population;
-          }
-
-          return {
-            name: result.name,
-            country: result.country,
-            population: countryName
-          };
-        });
-        let totalPopulation = 0;
-        for (var i = 0; i < membersMatching.length; i++) {
-          totalPopulation += membersMatching[i].population;
-        }
-        this.setState({
-          statisticsList: membersMatching,
-          total: totalPopulation
-        });
-      });
   }
+  //   fetch("https://restcountries.eu/rest/v2/")
+  //     .then(data => {
+  //       return data.json();
+  //     })
+  //     .then(serverStatistics => {
+  //       const membersMatching = members.map(result => {
+  //         const countryInfo = serverStatistics.find(
+  //           serverResult => result.country === serverResult.name
+  //         );
+
+  //         let countryName = "";
+  //         if (countryInfo === undefined) {
+  //           countryName = "Country Not Found";
+  //         } else {
+  //           countryName = countryInfo.population;
+  //         }
+
+  //         return {
+  //           name: result.name,
+  //           country: result.country,
+  //           population: countryName
+  //         };
+  //       });
+  //
+  //       this.setState({
+  //         statisticsList: membersMatching,
+  //         total: totalPopulation
+  //       });
+  //     });
+  //}
   render() {
     return (
       <div className="Population">
@@ -76,5 +70,4 @@ class Population extends Component {
     );
   }
 }
-
 export default Population;
