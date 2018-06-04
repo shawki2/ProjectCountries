@@ -1,41 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import "./Population.css";
-import members from "../data/members";
 import Cache from "./Cache";
 class Population extends Cache {
-  constructor() {
-    super();
-  }
-  //   fetch("https://restcountries.eu/rest/v2/")
-  //     .then(data => {
-  //       return data.json();
-  //     })
-  //     .then(serverStatistics => {
-  //       const membersMatching = members.map(result => {
-  //         const countryInfo = serverStatistics.find(
-  //           serverResult => result.country === serverResult.name
-  //         );
-
-  //         let countryName = "";
-  //         if (countryInfo === undefined) {
-  //           countryName = "Country Not Found";
-  //         } else {
-  //           countryName = countryInfo.population;
-  //         }
-
-  //         return {
-  //           name: result.name,
-  //           country: result.country,
-  //           population: countryName
-  //         };
-  //       });
-  //
-  //       this.setState({
-  //         statisticsList: membersMatching,
-  //         total: totalPopulation
-  //       });
-  //     });
-  //}
   render() {
     return (
       <div className="Population">
@@ -52,8 +18,8 @@ class Population extends Cache {
             </tr>
           </thead>
           <tbody>
-            {this.state.statisticsList.map(result => (
-              <tr>
+            {this.state.statisticsList.map((result, index) => (
+              <tr key={index}>
                 <td>{result.name}</td>
                 <td>{result.country}</td>
                 <td>{result.population}</td>

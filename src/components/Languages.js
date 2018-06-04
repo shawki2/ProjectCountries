@@ -1,11 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import "./Languages.css";
-import members from "../data/members";
 import Cache from "./Cache";
 class Languages extends Cache {
-  constructor() {
-    super();
-  }
+  //countries = people.map(person => person.country);
+  //distinctCountries = Array.from(new Set(this.countries));
+
   render() {
     return (
       <div className="Languages">
@@ -22,12 +21,11 @@ class Languages extends Cache {
             </tr>
           </thead>
           <tbody>
-            {this.state.statisticsList.map(result => (
-              <tr>
+            {this.state.statisticsList.map((result, index) => (
+              <tr key={index}>
                 <td>{result.name}</td>
                 <td>{result.country}</td>
                 <td>{result.languages}</td>
-                <td>{console.log(result)}</td>
               </tr>
             ))}
           </tbody>

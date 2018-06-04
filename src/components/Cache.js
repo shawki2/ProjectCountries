@@ -14,8 +14,8 @@ class Cache extends React.Component {
       .then(serverStatistics => {
         const membersMatching = members.map(result => {
           const countryInfo = serverStatistics.find(
-            serverResult => result.country === serverResult.name
-          ); //.map();
+            serverResult => serverResult.name.includes(result.country)
+          );
           let countryName = "";
           if (countryInfo === undefined) {
             countryName = "Country Not Found";
@@ -26,7 +26,7 @@ class Cache extends React.Component {
           let languageName;
           if (
             countryInfo !== undefined &&
-            (languageName = countryInfo.languages.length == 2)
+            (countryInfo.languages.length === 2)
           ) {
             languageName =
               countryInfo.languages[0].name +
@@ -34,7 +34,7 @@ class Cache extends React.Component {
               countryInfo.languages[1].name;
           } else if (
             countryInfo !== undefined &&
-            (languageName = countryInfo.languages.length == 1)
+            (countryInfo.languages.length === 1)
           ) {
             // let languageName =countryInfo.languages[0].name +  ", " +countryInfo.languages[1].name;
             languageName = countryInfo.languages[0].name;
@@ -47,22 +47,18 @@ class Cache extends React.Component {
             languages: languageName
           };
 
-          // languages: languageName
-          //languages: countryInfo.languages.name
-
-          //languages: countryInfo.languages.map(lang => lang.name),
-          //region: countryInfo.region
         });
-        console.log(membersMatching);
+        let totalLanguages = 0;
+        let languagesFilter = membersMatching.map(
+          country => country.languages
+        );
+        let distinctLanguages = Array.from(new Set(languagesFilter));
+        totalLanguages = distinctLanguages.length
 
-        let totalPopulation = 0;
-        for (var i = 0; i < membersMatching.length; i++) {
-          totalPopulation += membersMatching[i].population;
-        }
         this.setState({
           statisticsList: membersMatching,
-          total: totalPopulation,
-          totalLang: membersMatching.length
+          // total: totalPopulation,
+          totalLang: totalLanguages
         });
       });
   }
