@@ -33,8 +33,13 @@ class Cache extends React.Component {
           };
         });
         let totalPopulation = 0;
-        for (var i = 0; i < membersMatching.length; i++) {
-          totalPopulation += membersMatching[i].population;
+        let populationFilter = membersMatching.map(
+          country => country.population
+        );
+        let distinctPopulation = Array.from(new Set(populationFilter));
+
+        for (var i = 0; i < distinctPopulation.length; i++) {
+          totalPopulation += distinctPopulation[i];
         }
         this.setState({
           statisticsList: membersMatching,
