@@ -2,15 +2,26 @@ import React from "react";
 import "./Languages.css";
 import Cache from "./Cache";
 class Languages extends Cache {
-  //countries = people.map(person => person.country);
-  //distinctCountries = Array.from(new Set(this.countries));
-
+   Submit = e => {
+    e.preventDefault();
+    const val = this.state.inputBoxLang;
+    console.log(val.value);
+    val.value = "";
+  };
+  Change = e => {
+    e.preventDefault();
+    this.setState({
+    inputBoxLang: e.target
+    });
+  };
   render() {
     return (
       <div className="Languages">
         <div className="Languages-header">
           <h2>Languages Spoken in Member Countries</h2>
-          <input type="text" placeholder="Search by language" />
+          <form onSubmit={this.Submit}>
+          <input type="text" placeholder="Search by language"  onChange={this.Change}/>
+          </form>
         </div>
         <table>
           <thead>
@@ -21,7 +32,7 @@ class Languages extends Cache {
             </tr>
           </thead>
           <tbody>
-            {this.state.statisticsList.map((result, index) => (
+            {this.state.statisticsList.filter(list=>list.country.includes(this.state.inputBoxLang.value)).map((result, index) => (
               <tr key={index}>
                 <td>{result.name}</td>
                 <td>{result.country}</td>

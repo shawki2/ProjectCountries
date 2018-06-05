@@ -2,12 +2,28 @@ import React from "react";
 import "./Population.css";
 import Cache from "./Cache";
 class Population extends Cache {
+  
+  Submit = e => {
+    e.preventDefault();
+    const val = this.state.inputBoxPopu;
+    console.log(val.value);
+    val.value = "";
+  };
+  Change = e => {
+    e.preventDefault();
+    this.setState({
+      inputBoxPopu: e.target
+    });
+  };
+  
   render() {
     return (
       <div className="Population">
         <div className="Population-header">
           <h2>Population of Member Countries</h2>
-          <input type="text" placeholder="Search by country" />
+          <form onSubmit={this.Submit}>
+          <input type="text" placeholder="Search by country"  onChange={this.Change}/>
+        </form>
         </div>
         <table>
           <thead>
@@ -18,7 +34,7 @@ class Population extends Cache {
             </tr>
           </thead>
           <tbody>
-            {this.state.statisticsList.map((result, index) => (
+            {this.state.statisticsList.filter(list=>list.country.includes(this.state.inputBoxPopu.value)).map((result, index) => (
               <tr key={index}>
                 <td>{result.name}</td>
                 <td>{result.country}</td>
