@@ -22,8 +22,9 @@ class Cache extends React.Component {
           } else {
             countryName = countryInfo.population;
           }
-          let allLanguages = countryInfo.languages.map(lang => lang.name);
-          let languageNames = allLanguages.join(", ");
+          let allLanguages, languageNames;
+          allLanguages = countryInfo.languages.map(lang => lang.name);
+          languageNames = allLanguages.join(", ");
           console.log(languageNames);
           return {
             name: result.name,
