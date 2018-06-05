@@ -4,6 +4,7 @@ class Cache extends React.Component {
   constructor() {
     super();
     this.state = {
+      inputBox: { value: "" },
       statisticsList: []
     };
 
@@ -13,8 +14,8 @@ class Cache extends React.Component {
       })
       .then(serverStatistics => {
         const membersMatching = members.map(result => {
-          const countryInfo = serverStatistics.find(
-            serverResult => result.country === serverResult.name
+          const countryInfo = serverStatistics.find(serverResult =>
+            serverResult.name.includes(result.country)
           );
 
           let countryName = "";

@@ -1,47 +1,31 @@
-import React, { Component } from "react";
+import React from "react";
 import "./Population.css";
-import members from "../data/members";
 import Cache from "./Cache";
 class Population extends Cache {
-  constructor() {
-    super();
-  }
-  //   fetch("https://restcountries.eu/rest/v2/")
-  //     .then(data => {
-  //       return data.json();
-  //     })
-  //     .then(serverStatistics => {
-  //       const membersMatching = members.map(result => {
-  //         const countryInfo = serverStatistics.find(
-  //           serverResult => result.country === serverResult.name
-  //         );
-
-  //         let countryName = "";
-  //         if (countryInfo === undefined) {
-  //           countryName = "Country Not Found";
-  //         } else {
-  //           countryName = countryInfo.population;
-  //         }
-
-  //         return {
-  //           name: result.name,
-  //           country: result.country,
-  //           population: countryName
-  //         };
-  //       });
-  //
-  //       this.setState({
-  //         statisticsList: membersMatching,
-  //         total: totalPopulation
-  //       });
-  //     });
-  //}
+  Submit = e => {
+    e.preventDefault();
+    const val = this.state.inputBox;
+    console.log(val.value);
+    val.value = "";
+  };
+  Change = e => {
+    e.preventDefault();
+    this.setState({
+      inputBox: e.target
+    });
+  };
   render() {
     return (
       <div className="Population">
         <div className="Population-header">
           <h2>Population of Member Countries</h2>
-          <input type="text" placeholder="Search by country" />
+          <form onSubmit={this.Submit}>
+            <input
+              type="text"
+              placeholder="Search by country"
+              onChange={this.Change}
+            />
+          </form>
         </div>
         <table>
           <thead>
@@ -52,13 +36,15 @@ class Population extends Cache {
             </tr>
           </thead>
           <tbody>
-            {this.state.statisticsList.map(result => (
-              <tr>
-                <td>{result.name}</td>
-                <td>{result.country}</td>
-                <td>{result.population}</td>
-              </tr>
-            ))}
+            {this.state.statisticsList
+              .filter(list => list.country.includes(this.state.inputBox.value))
+              .map((result, index) => (
+                <tr key={index}>
+                  <td>{result.name}</td>
+                  <td>{result.country}</td>
+                  <td>{result.population}</td>
+                </tr>
+              ))}
           </tbody>
           <tfoot>
             <tr>

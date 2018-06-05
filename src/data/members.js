@@ -5,7 +5,7 @@ const people = [
   },
   {
     name: "Daniel",
-    country: "United Kingdom of Great Britain and Northern Ireland"
+    country: "United Kingdom"
   },
   {
     name: "Mohamed",
