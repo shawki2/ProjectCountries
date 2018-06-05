@@ -22,30 +22,14 @@ class Cache extends React.Component {
           } else {
             countryName = countryInfo.population;
           }
-          console.log(countryInfo);
-
-          let languageName;
-          if (
-            countryInfo !== undefined &&
-            (countryInfo.languages.length === 2)
-          ) {
-            languageName =
-              countryInfo.languages[0].name +
-              ", " +
-              countryInfo.languages[1].name;
-          } else if (
-            countryInfo !== undefined &&
-            (countryInfo.languages.length === 1)
-          ) {
-            // let languageName =countryInfo.languages[0].name +  ", " +countryInfo.languages[1].name;
-            languageName = countryInfo.languages[0].name;
-          } else languageName = "language Not Found";
-
+          let allLanguages = countryInfo.languages.map(lang => lang.name);
+          let languageNames = allLanguages.join(", ");
+          console.log(languageNames);
           return {
             name: result.name,
             country: result.country,
             population: countryName,
-            languages: languageName
+            languages: languageNames
           };
 
         });
@@ -65,6 +49,14 @@ class Cache extends React.Component {
         let distinctLanguages = Array.from(new Set(languagesFilter));
         totalLanguages = distinctLanguages.length
 
+        populationFilter = membersMatching.map(
+          country => country.population
+        );
+        distinctPopulation = Array.from(new Set(populationFilter));
+
+        for (i = 0; i < distinctPopulation.length; i++) {
+          totalPopulation += distinctPopulation[i];
+        }
         this.setState({
           statisticsList: membersMatching,
           total: totalPopulation,
