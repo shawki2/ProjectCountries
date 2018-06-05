@@ -2,8 +2,6 @@ import React from "react";
 import "./Languages.css";
 import Cache from "./Cache";
 class Languages extends Cache {
-  //countries = people.map(person => person.country);
-  //distinctCountries = Array.from(new Set(this.countries));
 
   render() {
     return (
@@ -26,7 +24,7 @@ class Languages extends Cache {
                 <td>{result.name}</td>
                 <td>{result.country}</td>
                 <td>{result.languages}</td>
-              </tr>
+               </tr>
             ))}
           </tbody>
           <tfoot>

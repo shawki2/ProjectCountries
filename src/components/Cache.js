@@ -23,6 +23,7 @@ class Cache extends React.Component {
             countryName = countryInfo.population;
           }
           console.log(countryInfo);
+
           let languageName;
           if (
             countryInfo !== undefined &&
@@ -48,6 +49,15 @@ class Cache extends React.Component {
           };
 
         });
+        let totalPopulation = 0;
+        let populationFilter = membersMatching.map(
+          country => country.population
+        );
+        let distinctPopulation = Array.from(new Set(populationFilter));
+
+        for (var i = 0; i < distinctPopulation.length; i++) {
+          totalPopulation += distinctPopulation[i];
+        }
         let totalLanguages = 0;
         let languagesFilter = membersMatching.map(
           country => country.languages
@@ -57,7 +67,7 @@ class Cache extends React.Component {
 
         this.setState({
           statisticsList: membersMatching,
-          // total: totalPopulation,
+          total: totalPopulation,
           totalLang: totalLanguages
         });
       });
