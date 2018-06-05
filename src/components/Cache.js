@@ -14,24 +14,47 @@ class Cache extends React.Component {
       .then(serverStatistics => {
         const membersMatching = members.map(result => {
           const countryInfo = serverStatistics.find(
-            serverResult => result.country === serverResult.name
+            serverResult => serverResult.name.includes(result.country)
           );
-
           let countryName = "";
           if (countryInfo === undefined) {
             countryName = "Country Not Found";
           } else {
             countryName = countryInfo.population;
           }
+          console.log(countryInfo);
+          let languageName;
+          if (
+            countryInfo !== undefined &&
+            (countryInfo.languages.length === 2)
+          ) {
+            languageName =
+              countryInfo.languages[0].name +
+              ", " +
+              countryInfo.languages[1].name;
+          } else if (
+            countryInfo !== undefined &&
+            (countryInfo.languages.length === 1)
+          ) {
+            // let languageName =countryInfo.languages[0].name +  ", " +countryInfo.languages[1].name;
+            languageName = countryInfo.languages[0].name;
+          } else languageName = "language Not Found";
 
           return {
             name: result.name,
             country: result.country,
             population: countryName,
-            languages: countryInfo.languages.map(lang => lang.name),
-            region: countryInfo.region
+            languages: languageName
           };
+
         });
+      let totalLanguages = 0;
+        let languagesFilter = membersMatching.map(
+          country => country.languages
+        );
+        let distinctLanguages = Array.from(new Set(languagesFilter));
+        totalLanguages = distinctLanguages.length
+
         let totalPopulation = 0;
         let populationFilter = membersMatching.map(
           country => country.population
@@ -43,7 +66,8 @@ class Cache extends React.Component {
         }
         this.setState({
           statisticsList: membersMatching,
-          total: totalPopulation
+          // total: totalPopulation,
+          totalLang: totalLanguages
         });
       });
   }

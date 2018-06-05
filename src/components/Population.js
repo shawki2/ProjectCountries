@@ -1,11 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import "./Population.css";
-import members from "../data/members";
 import Cache from "./Cache";
 class Population extends Cache {
-  constructor() {
-    super();
-  }
   render() {
     return (
       <div className="Population">
@@ -22,8 +18,8 @@ class Population extends Cache {
             </tr>
           </thead>
           <tbody>
-            {this.state.statisticsList.map(result => (
-              <tr>
+            {this.state.statisticsList.map((result, index) => (
+              <tr key={index}>
                 <td>{result.name}</td>
                 <td>{result.country}</td>
                 <td>{result.population}</td>
