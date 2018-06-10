@@ -1,43 +1,55 @@
-import React, { Component } from 'react';
-import './Population.css';
-
-class Population extends Component {
-	render() {
-		return (
-			<div className="Population">
-				<div className="Population-header">
-					<h2>Population of Member Countries</h2>
-					<input type="text" placeholder="Search by country" />
-				</div>
-				<table>
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Country</th>
-							<th>Population</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Mozafar</td>
-							<td>Sudan</td>
-							<td>39598700</td>
-						</tr>
-						<tr>
-							<td>Daniel</td>
-							<td>United Kingdom</td>
-							<td>65110000</td>
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colSpan="3">Total Population: ???</td>
-						</tr>
-					</tfoot>
-				</table>
-			</div>
-		)
-	}
+import React from "react";
+import "./Population.css";
+import Cache from "./Cache";
+class Population extends Cache {
+  
+  Submit = e => {
+    e.preventDefault();
+    const val = this.state.inputBoxPopu;
+    console.log(val.value);
+    val.value = "";
+  };
+  Change = e => {
+    e.preventDefault();
+    this.setState({
+      inputBoxPopu: e.target
+    });
+  };
+  
+  render() {
+    return (
+      <div className="Population">
+        <div className="Population-header">
+          <h2>Population of Member Countries</h2>
+          <form onSubmit={this.Submit}>
+          <input type="text" placeholder="Search by country"  onChange={this.Change}/>
+        </form>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Country</th>
+              <th>Population</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.statisticsList.filter(list=>list.country.includes(this.state.inputBoxPopu.value)).map((result, index) => (
+              <tr key={index}>
+                <td>{result.name}</td>
+                <td>{result.country}</td>
+                <td>{result.population}</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colSpan="3">Total Population: {this.state.total}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    );
+  }
 }
-
 export default Population;
