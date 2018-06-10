@@ -1,10 +1,13 @@
 import React from "react";
 import members from "../data/members";
+import  "./Languages";
+
 class Cache extends React.Component {
   constructor() {
     super();
     this.state = {
-      inputBox: { value: "" },
+      inputBoxLang: { value: "" },
+      inputBoxPopu: { value: "" },
       statisticsList: []
     };
 
@@ -14,9 +17,14 @@ class Cache extends React.Component {
       })
       .then(serverStatistics => {
         const membersMatching = members.map(result => {
-          const countryInfo = serverStatistics.find(serverResult =>
-            serverResult.name.includes(result.country)
+          var countryInfo = serverStatistics.find(
+            serverResult => serverResult.name === result.country
           );
+          if (countryInfo === undefined) {
+            countryInfo = serverStatistics.find(serverResult =>
+              serverResult.name.includes(result.country)
+            );
+          }
 
           let countryName = "";
           if (countryInfo === undefined) {
@@ -24,22 +32,52 @@ class Cache extends React.Component {
           } else {
             countryName = countryInfo.population;
           }
+          let allLanguages, languageNames;
+          allLanguages = countryInfo.languages.map(lang => lang.name);
+          languageNames = allLanguages.join(", ");
 
           return {
             name: result.name,
             country: result.country,
             population: countryName,
-            languages: countryInfo.languages.map(lang => lang.name),
-            region: countryInfo.region
+            languages: languageNames
           };
         });
+        // let totalPopulation = 0;
+        // let populationFilter = membersMatching.map(
+        //   country => country.population
+        // );
+        // let distinctPopulation = Array.from(new Set(populationFilter));
+
+        // for (var i = 0; i < distinctPopulation.length; i++) {
+        //   totalPopulation += distinctPopulation[i];
+        // }
+    
+        console.log(membersMatching);
+        //start here for languages companents
+        let languagesFilter = membersMatching
+          .filter(list => list.country.includes(this.state.inputBoxLang.value))
+          .map(country => country.languages).join(", ").split(", ");
+        let distinctLanguages = Array.from(new Set(languagesFilter));
+        let totalLanguages = distinctLanguages.length;
+        console.log(languagesFilter);
+        //until here for languages companents
+
+        //start here for population companents
+        console.log(this.state.inputBoxLang.value)
         let totalPopulation = 0;
-        for (var i = 0; i < membersMatching.length; i++) {
-          totalPopulation += membersMatching[i].population;
+        let populationFilter = membersMatching.filter(list => list.country.includes(this.state.inputBoxPopu.value)).map(country => country.population);
+        let distinctPopulation = Array.from(new Set(populationFilter));
+
+        for (let i = 0; i < distinctPopulation.length; i++) {
+          totalPopulation += distinctPopulation[i];
         }
+        //until here for population companents
+
         this.setState({
           statisticsList: membersMatching,
-          total: totalPopulation
+          total: totalPopulation,
+          totalLang: totalLanguages
         });
       });
   }

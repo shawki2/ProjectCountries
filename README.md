@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+Shawki
+=======
 Harun Kisac
+>>>>>>> f888b7f06038fd4774d2d702883b62bea8c5af34
 
 # Countries App
 
