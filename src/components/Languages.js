@@ -1,8 +1,10 @@
 import React from "react";
 import "./Languages.css";
 
+
 class Languages extends React.Component {
   Submit = e => {
+
     e.preventDefault();
     const val = this.state.inputBoxLang;
     console.log(val.value);
@@ -11,6 +13,7 @@ class Languages extends React.Component {
   Change = e => {
     e.preventDefault();
     this.setState({
+
       inputBoxLang: e.target
     });
   };
@@ -27,8 +30,9 @@ class Languages extends React.Component {
       list => list.country.includes(this.props.inputBoxLang.value)).map(country => country.languages);
     var distinctLanguages = [...(new Set(languagesFilter))];
     return (distinctLanguages);
-    //until here for languages companents
+   
   }
+
   render() {
 
     return (
@@ -36,7 +40,9 @@ class Languages extends React.Component {
         <div className="Languages-header">
           <h2>Languages Spoken in Member Countries</h2>
           <form onSubmit={this.Submit}>
+
             <input type="text" placeholder="Search by language" onChange={this.Change} />
+
           </form>
         </div>
         <table>
@@ -48,7 +54,9 @@ class Languages extends React.Component {
             </tr>
           </thead>
           <tbody>
+
             {this.props.statisticsList.map((result, index) => (
+
               <tr key={index}>
                 <td>{result.name}</td>
                 <td>{result.country}</td>

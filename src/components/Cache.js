@@ -4,6 +4,8 @@ class Cache extends React.Component {
   constructor() {
     super();
     this.state = {
+      inputBoxLang: { value: "" },
+      inputBoxPopu: { value: "" },
       statisticsList: []
     };
 
@@ -13,9 +15,15 @@ class Cache extends React.Component {
       })
       .then(serverStatistics => {
         const membersMatching = members.map(result => {
-          const countryInfo = serverStatistics.find(
-            serverResult => serverResult.name.includes(result.country)
+          var countryInfo = serverStatistics.find(
+            serverResult => serverResult.name === result.country
           );
+          if (countryInfo === undefined) {
+            countryInfo = serverStatistics.find(serverResult =>
+              serverResult.name.includes(result.country)
+            );
+          }
+
           let countryName = "";
           if (countryInfo === undefined) {
             countryName = "Country Not Found";
@@ -32,11 +40,10 @@ class Cache extends React.Component {
             population: countryName,
             languages: languageNames
           };
-
         });
-
         this.setState({
           statisticsList: membersMatching,
+
         });
       });
   }

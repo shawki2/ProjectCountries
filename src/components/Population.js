@@ -33,8 +33,10 @@ class Population extends React.Component {
         <div className="Population-header">
           <h2>Population of Member Countries</h2>
           <form onSubmit={this.Submit}>
+
             <input type="text" placeholder="Search by country" onChange={this.Change} />
           </form>  </div>
+
         <table>
           <thead>
             <tr>
@@ -44,7 +46,9 @@ class Population extends React.Component {
             </tr>
           </thead>
           <tbody>
+
             {this.props.statisticsList.map((result, index) => (
+
               <tr key={index}>
                 <td>{result.name}</td>
                 <td>{result.country}</td>

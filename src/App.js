@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Statistics from "./components/Statistics";
 import Languages from "./components/Languages";
 import Population from "./components/Population";
+
 import loadData from './DataLoader';
 import "./App.css";
 
