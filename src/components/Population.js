@@ -1,30 +1,42 @@
 import React from "react";
 import "./Population.css";
-import Cache from "./Cache";
-class Population extends Cache {
-  
-  Submit = e => {
-    e.preventDefault();
-    const val = this.state.inputBoxPopu;
-    console.log(val.value);
-    val.value = "";
-  };
-  Change = e => {
-    e.preventDefault();
-    this.setState({
-      inputBoxPopu: e.target
-    });
-  };
-  
+class Population extends React.Component {
+  getTotalPopulation() {
+    var populationFilter = this.props.statisticsList.map(
+      country => country.population
+    );
+    var distinctPopulation = Array.from(new Set(populationFilter));
+    var totalPopulation = 0;
+    for (let i = 0; i < distinctPopulation.length; i++) {
+      totalPopulation += distinctPopulation[i];
+    }
+    return (totalPopulation);
+  }
+  getInputPoublation() {
+    var populationFilter = this.props.statisticsList.filter(
+      list => list.country.includes(this.state.inputBoxPopu.value)).map(
+      country => country.population
+      );
+    var distinctPopulation = Array.from(new Set(populationFilter));
+    var totalPopulation = 0;
+    for (let i = 0; i < distinctPopulation.length; i++) {
+      totalPopulation += distinctPopulation[i];
+    }
+    return (totalPopulation);
+    //until here for population companents
+
+  }
+
   render() {
     return (
       <div className="Population">
         <div className="Population-header">
           <h2>Population of Member Countries</h2>
           <form onSubmit={this.Submit}>
-          <input type="text" placeholder="Search by country"  onChange={this.Change}/>
-        </form>
-        </div>
+
+            <input type="text" placeholder="Search by country" onChange={this.Change} />
+          </form>  </div>
+
         <table>
           <thead>
             <tr>
@@ -34,7 +46,9 @@ class Population extends Cache {
             </tr>
           </thead>
           <tbody>
-            {this.state.statisticsList.filter(list=>list.country.includes(this.state.inputBoxPopu.value)).map((result, index) => (
+
+            {this.props.statisticsList.map((result, index) => (
+
               <tr key={index}>
                 <td>{result.name}</td>
                 <td>{result.country}</td>
@@ -44,7 +58,7 @@ class Population extends Cache {
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan="3">Total Population: {this.state.total}</td>
+              <td colSpan="3">Total Population: {this.getTotalPopulation()}</td>
             </tr>
           </tfoot>
         </table>
