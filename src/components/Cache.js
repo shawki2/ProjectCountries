@@ -41,9 +41,9 @@ class Cache extends React.Component {
             languages: languageNames
           };
         });
-        this.setState({
-          statisticsList: membersMatching,
 
+        this.setState({
+          statisticsList: membersMatching
         });
       });
   }
