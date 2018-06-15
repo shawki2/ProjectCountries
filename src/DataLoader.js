@@ -23,8 +23,8 @@ function loadData() {
                 }
                 let allLanguages, languageNames;
                 allLanguages = countryInfo.languages.map(lang => lang.name);
-                languageNames = allLanguages.join(", ");
-                console.log(languageNames);
+                languageNames = allLanguages.join(",");
+                
                 return {
                     name: result.name,
                     country: result.country,

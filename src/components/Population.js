@@ -2,7 +2,8 @@ import React from "react";
 import "./Population.css";
 class Population extends React.Component {
   getTotalPopulation() {
-    var populationFilter = this.props.statisticsList.map(
+    var populationFilter = this.props.statisticsList.filter(
+      list => list.country.includes(this.props.inputBoxPopu)).map(
       country => country.population
     );
     var distinctPopulation = Array.from(new Set(populationFilter));
@@ -12,29 +13,28 @@ class Population extends React.Component {
     }
     return (totalPopulation);
   }
-  getInputPoublation() {
-    var populationFilter = this.props.statisticsList.filter(
-      list => list.country.includes(this.state.inputBoxPopu.value)).map(
-      country => country.population
-      );
-    var distinctPopulation = Array.from(new Set(populationFilter));
-    var totalPopulation = 0;
-    for (let i = 0; i < distinctPopulation.length; i++) {
-      totalPopulation += distinctPopulation[i];
-    }
-    return (totalPopulation);
-    //until here for population companents
+  // getInputPoublation() {
+  //   var populationFilter = this.props.statisticsList.filter(
+  //     list => list.country.includes(this.props.inputBoxPopu)).map(
+  //     country => country.population
+  //     );
+  //   var distinctPopulation = Array.from(new Set(populationFilter));
+  //   var totalPopulation = 0;
+  //   for (let i = 0; i < distinctPopulation.length; i++) {
+  //     totalPopulation += distinctPopulation[i];
+  //   }
+  //   return (totalPopulation);
+  //   //until here for population companents
 
-  }
-
+  // }
   render() {
     return (
       <div className="Population">
         <div className="Population-header">
           <h2>Population of Member Countries</h2>
-          <form onSubmit={this.Submit}>
+          <form onSubmit={this.props.PopSubmit}>
 
-            <input type="text" placeholder="Search by country" onChange={this.Change} />
+            <input type="text" placeholder="Search by country" onChange={this.props.PopChange} />
           </form>  </div>
 
         <table>
@@ -47,7 +47,8 @@ class Population extends React.Component {
           </thead>
           <tbody>
 
-            {this.props.statisticsList.map((result, index) => (
+            {this.props.statisticsList.filter(
+      list => list.country.includes(this.props.inputBoxPopu)).map((result, index) => (
 
               <tr key={index}>
                 <td>{result.name}</td>

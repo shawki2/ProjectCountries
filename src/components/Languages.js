@@ -2,36 +2,25 @@ import React from "react";
 import "./Languages.css";
 
 
-class Languages extends React.Component {
-  Submit = e => {
-
-    e.preventDefault();
-    const val = this.state.inputBoxLang;
-    console.log(val.value);
-    val.value = "";
-  };
-  Change = e => {
-    e.preventDefault();
-    this.setState({
-
-      inputBoxLang: e.target
-    });
-  };
+class Languages  extends React.Component {
+  
   getTotalLang() {
-    var languagesFilter = this.props.statisticsList.map(
+    var languagesFilter = this.props.statisticsList.filter(
+      list => list.country.includes(this.props.inputBoxLang)).map(
       country => country.languages
     );
     var distinctLanguages = 0;
-    distinctLanguages = [...new Set(languagesFilter)]
+    languagesFilter=languagesFilter.join(",").split(",");
+    distinctLanguages = [...new Set(languagesFilter)];
     return (distinctLanguages);
   }
-  getInputLang() {
-    var languagesFilter = this.props.statisticsList.filter(
-      list => list.country.includes(this.props.inputBoxLang.value)).map(country => country.languages);
-    var distinctLanguages = [...(new Set(languagesFilter))];
-    return (distinctLanguages);
+  // getInputLang() {
+  //   var languagesFilter = this.props.statisticsList.filter(
+  //     list => list.country.includes(this.props.inputBoxLang.value)).map(country => country.languages);
+  //   var distinctLanguages = [...(new Set(languagesFilter))];
+  //   return (distinctLanguages);
    
-  }
+  // }
 
   render() {
 
@@ -39,9 +28,9 @@ class Languages extends React.Component {
       <div className="Languages">
         <div className="Languages-header">
           <h2>Languages Spoken in Member Countries</h2>
-          <form onSubmit={this.Submit}>
+          <form onSubmit={this.props.Submit}>
 
-            <input type="text" placeholder="Search by language" onChange={this.Change} />
+            <input type="text" placeholder="Search by language" onChange={this.props.Change} />
 
           </form>
         </div>
@@ -55,7 +44,8 @@ class Languages extends React.Component {
           </thead>
           <tbody>
 
-            {this.props.statisticsList.map((result, index) => (
+            {this.props.statisticsList.filter(
+      list => list.country.includes(this.props.inputBoxLang)).map((result, index) => (
 
               <tr key={index}>
                 <td>{result.name}</td>

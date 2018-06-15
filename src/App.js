@@ -7,6 +7,7 @@ import loadData from './DataLoader';
 import "./App.css";
 
 class App extends Component {
+
   constructor() {
     super();
     this.state = {
@@ -19,6 +20,34 @@ class App extends Component {
       this.setState(data);
     });
   }
+  PopSubmit = e => {
+
+    e.preventDefault();
+    const val = this.state.inputBoxPopu;
+    console.log(val.value);
+    val.value = "";
+  };
+  PopChange = e => {
+    e.preventDefault();
+    this.setState({
+
+      inputBoxPopu: e.target
+    });
+  };
+  Submit = e => {
+
+    e.preventDefault();
+    const val = this.state.inputBoxLang;
+    console.log(val.value);
+    val.value = "";
+  };
+  Change = e => {
+    e.preventDefault();
+    this.setState({
+
+      inputBoxLang: e.target
+    });
+  };
 
   render() {
     return (
@@ -27,8 +56,8 @@ class App extends Component {
           <h1 className="App-title">Community Member Countries</h1>
         </header>
         <Statistics />
-        <Population statisticsList={this.state.statisticsList} inputBoxPopu={this.state.inputBoxPopu.value} />
-        <Languages statisticsList={this.state.statisticsList} inputBoxLang={this.state.inputBoxLang} />
+        <Population statisticsList={this.state.statisticsList} inputBoxPopu={this.state.inputBoxPopu.value} PopChange={this.PopChange} PopSubmit={this.PopSubmit}/>
+        <Languages statisticsList={this.state.statisticsList} inputBoxLang={this.state.inputBoxLang.value} Change={this.Change} Submit={this.Submit}/>
       </div>
     );
   }
