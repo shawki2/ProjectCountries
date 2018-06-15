@@ -1,26 +1,37 @@
 import React from "react";
 import "./Languages.css";
-import Cache from "./Cache";
-class Languages extends Cache {
-   Submit = e => {
-    e.preventDefault();
-    const val = this.state.inputBoxLang;
-    console.log(val.value);
-    val.value = "";
-  };
-  Change = e => {
-    e.preventDefault();
-    this.setState({
-    inputBoxLang: e.target
-    });
-  };
+
+
+class Languages  extends React.Component {
+  
+  getTotalLang() {
+    var languagesFilter = this.props.statisticsList.filter(
+      list => list.country.includes(this.props.inputBoxLang)).map(
+      country => country.languages
+    );
+    var distinctLanguages = 0;
+    languagesFilter=languagesFilter.join(",").split(",");
+    distinctLanguages = [...new Set(languagesFilter)];
+    return (distinctLanguages);
+  }
+  // getInputLang() {
+  //   var languagesFilter = this.props.statisticsList.filter(
+  //     list => list.country.includes(this.props.inputBoxLang.value)).map(country => country.languages);
+  //   var distinctLanguages = [...(new Set(languagesFilter))];
+  //   return (distinctLanguages);
+   
+  // }
+
   render() {
+
     return (
       <div className="Languages">
         <div className="Languages-header">
           <h2>Languages Spoken in Member Countries</h2>
-          <form onSubmit={this.Submit}>
-          <input type="text" placeholder="Search by language"  onChange={this.Change}/>
+          <form onSubmit={this.props.Submit}>
+
+            <input type="text" placeholder="Search by language" onChange={this.props.Change} />
+
           </form>
         </div>
         <table>
@@ -32,7 +43,10 @@ class Languages extends Cache {
             </tr>
           </thead>
           <tbody>
-            {this.state.statisticsList.filter(list=>list.country.includes(this.state.inputBoxLang.value)).map((result, index) => (
+
+            {this.props.statisticsList.filter(
+      list => list.country.includes(this.props.inputBoxLang)).map((result, index) => (
+
               <tr key={index}>
                 <td>{result.name}</td>
                 <td>{result.country}</td>
@@ -42,7 +56,7 @@ class Languages extends Cache {
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan="3">Total Languages: {this.state.totalLang}</td>
+              <td colSpan="3">Total Languages: {this.getTotalLang().length}</td>
             </tr>
           </tfoot>
         </table>

@@ -6,7 +6,9 @@ import people from "../data/members.js";
 class Statistics extends Component {
   constructor(props) {
     super(props);
-    this.state = { regions: [] };
+
+    this.state = { regions: [], Region: [] };
+
   }
 
   countries = people.map(person => person.country);
@@ -14,10 +16,15 @@ class Statistics extends Component {
 
   regions = [];
 
+  Region = [];
+
+
   componentDidMount() {
     this.distinctCountries.map(country => {
       fetch("https://restcountries.eu/rest/v2/name/" + country)
-        .then(data => data.json())
+
+        .then(data => { return data.json(); })
+
         .then(response => {
           this.regions.push(response[0].region);
           this.setState({
@@ -25,6 +32,7 @@ class Statistics extends Component {
           });
         });
     });
+
   }
 
   getRegions() {
@@ -39,7 +47,15 @@ class Statistics extends Component {
           total={this.distinctCountries.length}
           label="Total Countries"
         />
-        <Statistic total={this.getRegions().length} label="Total Regions" />
+
+        <div className="Region">
+          <Statistic total={this.getRegions().length} label="Total Regions" />
+          <select>
+            <option >{this.getRegions()}</option>
+            <option selected>Please Select Region </option>
+          </select>
+        </div>
+
       </div>
     );
   }
