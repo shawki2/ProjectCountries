@@ -10,20 +10,19 @@ class Languages  extends React.Component {
       country => country.languages
     );
     var distinctLanguages = 0;
-    languagesFilter=languagesFilter.join(",").split(",");
+    
     distinctLanguages = [...new Set(languagesFilter)];
-    return (distinctLanguages);
+    return distinctLanguages;
   }
-  // getInputLang() {
-  //   var languagesFilter = this.props.statisticsList.filter(
-  //     list => list.country.includes(this.props.inputBoxLang.value)).map(country => country.languages);
-  //   var distinctLanguages = [...(new Set(languagesFilter))];
-  //   return (distinctLanguages);
-   
-  // }
+  getInputLang() {
+    var languagesFilter = this.props.statisticsList
+      .filter(list => list.country.includes(this.props.inputBoxLang.value))
+      .map(country => country.languages);
+    var distinctLanguages = [...new Set(languagesFilter)];
+    return distinctLanguages;
+  }
 
   render() {
-
     return (
       <div className="Languages">
         <div className="Languages-header">
@@ -31,7 +30,6 @@ class Languages  extends React.Component {
           <form onSubmit={this.props.Submit}>
 
             <input type="text" placeholder="Search by language" onChange={this.props.Change} />
-
           </form>
         </div>
         <table>
@@ -43,7 +41,6 @@ class Languages  extends React.Component {
             </tr>
           </thead>
           <tbody>
-
             {this.props.statisticsList.filter(
       list => list.country.includes(this.props.inputBoxLang)).map((result, index) => (
 
