@@ -36,9 +36,7 @@ function loadData() {
       });
 
       return {
-        statisticsList: membersMatching.sort(
-          (a, b) => b.languageCount - a.languageCount
-        )
+        statisticsList: membersMatching
       };
     });
 }
