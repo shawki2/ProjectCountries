@@ -17,14 +17,15 @@ function loadData() {
         }
         let countryName = "";
         if (countryInfo === undefined) {
-          countryName = "Country Not Found";
+          countryName = 0;
+          countryInfo = { languages: [{ name: "Country Not Found" }] };
         } else {
           countryName = countryInfo.population;
         }
         let allLanguages, languageNames;
         allLanguages = countryInfo.languages.map(lang => lang.name);
-        languageNames = allLanguages.join(", ");
-        console.log(languageNames);
+        languageNames = allLanguages.join(",");
+
         return {
           name: result.name,
           country: result.country,
@@ -33,7 +34,6 @@ function loadData() {
           languageCount: countryInfo.languages.length
         };
       });
-      console.log(membersMatching);
 
       return {
         statisticsList: membersMatching.sort(

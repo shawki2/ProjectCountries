@@ -8,7 +8,6 @@ class Statistics extends Component {
     super(props);
 
     this.state = { regions: [], Region: [] };
-
   }
 
   countries = people.map(person => person.country);
@@ -18,12 +17,12 @@ class Statistics extends Component {
 
   Region = [];
 
-
   componentDidMount() {
     this.distinctCountries.map(country => {
       fetch("https://restcountries.eu/rest/v2/name/" + country)
-
-        .then(data => { return data.json(); })
+        .then(data => {
+          return data.json();
+        })
 
         .then(response => {
           this.regions.push(response[0].region);
@@ -32,7 +31,6 @@ class Statistics extends Component {
           });
         });
     });
-
   }
 
   getRegions() {
@@ -51,11 +49,10 @@ class Statistics extends Component {
         <div className="Region">
           <Statistic total={this.getRegions().length} label="Total Regions" />
           <select>
-            <option >{this.getRegions()}</option>
+            <option>{this.getRegions()}</option>
             <option selected>Please Select Region </option>
           </select>
         </div>
-
       </div>
     );
   }
