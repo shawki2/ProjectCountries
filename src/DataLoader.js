@@ -6,6 +6,8 @@ function loadData() {
       return data.json();
     })
     .then(serverStatistics => {
+      // const aaaa=serverStatistics.map(res=>res.name);
+      // console.log(aaaa);
       const membersMatching = members.map(result => {
         var countryInfo = serverStatistics.find(
           serverResult => serverResult.name === result.country

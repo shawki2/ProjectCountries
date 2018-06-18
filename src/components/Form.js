@@ -8,10 +8,27 @@ export default class Form extends React.Component {
   };
 
   change = e => {
+    var words = ["of", "Of", "oF", "OF", "and", "And", "aNd", "anD", "ANd", "aND", "AND", "the", "The", "tHe", "thE", "THe", "tHE", "THE", "of)", "Of)", "oF)", "OF)", "and)", "And)", "aNd)", "anD)", "ANd)", "aND)", "AND)", "the)", "The)", "tHe)", "thE)", "THe)", "tHE)", "THE)", "(of", "(Of", "(oF", "(OF", "(and", "(And", "(aNd", "(anD", "(ANd", "(aND", "(AND", "(the", "(The", "(tHe", "(thE", "(THe", "(tHE", "(THE","former","da","Da","dA","DA","part)"];
     var letters = e.target.value;
     if (letters.length !== 0) {
-      letters = letters.toLowerCase();
-      letters = letters[0].toUpperCase() + letters.slice(1);
+      var letter = letters.split(" ").map(item => {
+        if (words.some(a => a.includes(item))) {
+          return item.toLowerCase();
+        } else {
+          if (item.includes('.')){
+          return item.toUpperCase();              
+          }else if(item.includes("-")) {
+            return (item = item.slice(0,item.indexOf("-")+1)+item[item.indexOf("-")+1].toUpperCase() + item.slice(item.indexOf("-")+2))
+          }else if(item[0] === "(") {
+            item = item.toLowerCase();
+            return (item = item[0] + item[1].toUpperCase() + item.slice(2));
+          } else {
+            item = item.toLowerCase();
+            return (item = item[0].toUpperCase() + item.slice(1));
+          }
+        }
+      });
+      letters = letter.join(" ");
     }
     this.setState({
       [e.target.name]: letters
