@@ -49,7 +49,7 @@ class Population extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.statisticsList
+            {this.props.filterStatisticsList
               .sort((a, b) => b.population - a.population)
               .filter(list => list.country.includes(this.props.inputBoxPopu))
               .map((result, index) => (
