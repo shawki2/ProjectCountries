@@ -34,7 +34,7 @@ class Languages extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.statisticsList
+            {this.props.filterStatisticsList
             .filter(list => list.country.includes(this.props.inputBoxLang))
               .sort((a, b) => b.languageCount - a.languageCount)
               .map((result, index) => (
