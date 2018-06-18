@@ -6,29 +6,12 @@ import people from "../data/members.js";
 class Statistics extends Component {
   constructor(props) {
     super(props);
-    this.state = { regions: [], distinctRegions: [], regionSelected: "" };
+    this.state = { regions: [], regionSelected: "" };
   }
 
-  countries = people.map(person => person.country);
-  distinctCountries = Array.from(new Set(this.countries));
-
-  regions = [];
-  distinctRegions = [];
-
-  componentDidMount() {
-    this.distinctCountries.map(country => {
-      fetch("https://restcountries.eu/rest/v2/name/" + country)
-        .then(data => {
-          return data.json();
-        })
-
-        .then(response => {
-          this.regions.push(response[0].region);
-          this.setState({
-            regions: this.regions
-          });
-        });
-    });
+  componentWillReceiveProps(newProps) {
+    const regions = newProps.statisticsList.map(item => item.regions);
+    this.setState({ regions: regions });
   }
 
   getDistincRegions() {
@@ -36,6 +19,7 @@ class Statistics extends Component {
 
     return distinctRegions
   }
+
   getDistincMembers() {
     const newArray = this.props.filterStatisticsList;
     const distinctMembers = Array.from(new Set(newArray));
@@ -44,6 +28,10 @@ class Statistics extends Component {
     return distinctMembers
   }
 
+  getDistinctCountries() {
+    const countryList = this.props.filterStatisticsList.map(item => item.country);
+    return [...new Set(countryList)];
+  }
 
   setRegion = (clickEvent) => {
     const region = clickEvent.target.value;
@@ -54,7 +42,6 @@ class Statistics extends Component {
     console.log("selectedRigion", populationFilter);
     return populationFilter
   }
-
 
   render() {
 
@@ -68,7 +55,7 @@ class Statistics extends Component {
       <div className="Statistics">
         <Statistic total={this.getDistincMembers().length} label="Total Members" />
         <Statistic
-          total={this.distinctCountries.length}
+          total={this.getDistinctCountries().length}
           label="Total Countries"
         />
 

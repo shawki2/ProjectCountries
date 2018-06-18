@@ -12,6 +12,7 @@ const people = [
     country: "Syria"
   },
   {
+<<<<<<< HEAD
     name: "Won",
     country: "Myanmar"
   },
@@ -64,6 +65,8 @@ const people = [
     country: "Syria"
   },
   {
+=======
+>>>>>>> Last task: fix and improve statistics and languages
     name: "Rareș",
     country: "Romania"
   },

@@ -24,6 +24,7 @@ class App extends Component {
       this.setState(data);
     });
   }
+  
   updateStatistics = (data) => {
     this.setState({ filterStatisticsList: data });
   }
