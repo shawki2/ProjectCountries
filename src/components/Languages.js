@@ -3,13 +3,28 @@ import "./Languages.css";
 
 class Languages extends React.Component {
   getTotalLang() {
-    var languagesFilter = this.props.statisticsList
-      .filter(list => list.country.includes(this.props.inputBoxLang))
-      .map(country => country.languages);
-    var distinctLanguages = 0;
-    languagesFilter = languagesFilter.join(",").split(",");
-    distinctLanguages = [...new Set(languagesFilter)];
-    return distinctLanguages;
+    const languagesList = this.props.filterStatisticsList
+    .filter(list => list.country.includes(this.props.inputBoxLang))
+    .reduce((result, item) => {
+      const languages = item.languages.split(", ");
+      return result.concat(languages);
+    }, []);
+
+    return [...new Set(languagesList)];
+
+    // var languagesFilter = this.props.filterStatisticsList.map(
+    //   country => country.languages
+    // );
+    // var distinctLanguages = [...new Set(languagesFilter)]
+    // console.log("distinctLanguages: ",  distinctLanguages)
+    // return distinctLanguages
+  }
+  getInputLang() {
+    var languagesFilter = this.props.statisticsList.filter(
+      list => list.country.includes(this.props.inputBoxLang.value)).map(country => country.languages);
+    var distinctLanguages = [...(new Set(languagesFilter))];
+    return distinctLanguages
+    //until here for languages companents
   }
 
   render() {
@@ -34,7 +49,7 @@ class Languages extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.statisticsList
+            {this.props.filterStatisticsList
             .filter(list => list.country.includes(this.props.inputBoxLang))
               .sort((a, b) => b.languageCount - a.languageCount)
               .map((result, index) => (
