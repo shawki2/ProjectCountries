@@ -1,56 +1,60 @@
 import React, { Component } from "react";
 import Statistic from "./Statistic";
 import "./Statistics.css";
-import people from "../data/members.js";
 
 class Statistics extends Component {
   constructor(props) {
     super(props);
-
-    this.state = { regions: [], Region: [] };
+    this.state = { regions: [], regionSelected: "" };
   }
 
-  countries = people.map(person => person.country);
-  distinctCountries = Array.from(new Set(this.countries));
-
-  regions = [];
-
-  Region = [];
-
-  componentDidMount() {
-    this.distinctCountries.map(country => {
-      fetch("https://restcountries.eu/rest/v2/name/" + country)
-        .then(data => {
-          return data.json();
-        })
-
-        .then(response => {
-          this.regions.push(response[0].region);
-          this.setState({
-            regions: this.regions
-          });
-        });
-    });
+  componentWillReceiveProps(newProps) {
+    const regions = newProps.statisticsList.map(item => item.regions);
+    this.setState({ regions: regions });
   }
 
-  getRegions() {
-    return Array.from(new Set(this.state.regions));
+  getDistincRegions() {
+    const distinctRegions = Array.from(new Set(this.state.regions));
+
+    return distinctRegions
+  }
+
+  getDistincMembers() {
+    const newArray = this.props.filterStatisticsList;
+    const distinctMembers = Array.from(new Set(newArray));
+
+    return distinctMembers
+  }
+
+  getDistinctCountries() {
+    const countryList = this.props.filterStatisticsList.map(item => item.country);
+    return [...new Set(countryList)];
+  }
+
+  setRegion = (clickEvent) => {
+    const region = clickEvent.target.value;
+    const populationFilter = this.props.statisticsList.filter(
+      person => person.regions.includes(region)
+    )
+    this.props.updateData(populationFilter);
+    return populationFilter
   }
 
   render() {
+    var distinctRegions = this.getDistincRegions();
     return (
       <div className="Statistics">
-        <Statistic total={people.length} label="Total Members" />
+        <Statistic total={this.getDistincMembers().length} label="Total Members" />
         <Statistic
-          total={this.distinctCountries.length}
-          label="Total Countries"
-        />
-
+          total={this.getDistinctCountries().length}
+          label="Total Countries"/>
         <div className="Region">
-          <Statistic total={this.getRegions().length} label="Total Regions" />
-          <select>
-            <option>{this.getRegions()}</option>
-            <option selected>Please Select Region </option>
+          <Statistic total={this.getDistincRegions().length} label="Total Regions" />
+          <select onChange={(event) => this.setRegion(event)}>
+            {distinctRegions.map((result, value) => (
+              <option key={value}>{result}</option>
+            ))}
+            <option >Please Select Region </option>
           </select>
         </div>
       </div>

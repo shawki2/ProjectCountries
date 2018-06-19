@@ -15,12 +15,17 @@ class App extends Component {
       inputBoxLang: { value: "" },
       inputBoxPopu: { value: "" },
       statisticsList: [],
-      fields: {}
+      fields: {},
+      filterStatisticsList: []
     };
 
     loadData().then(data => {
       this.setState(data);
     });
+  }
+  
+  updateStatistics = (data) => {
+    this.setState({ filterStatisticsList: data });
   }
   PopSubmit = e => {
     e.preventDefault();
@@ -63,20 +68,25 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Community Member Countries</h1>
         </header>
-        <Statistics />
-        <Form onSubmit={fields => this.onSubmit(fields)} />
-        <Population
-          statisticsList={this.state.statisticsList}
-          inputBoxPopu={this.state.inputBoxPopu.value}
+
+
+        <Statistics statisticsList={this.state.statisticsList}
+          filterStatisticsList={this.state.filterStatisticsList}
+          updateData={this.updateStatistics} />
+
+         <Form onSubmit={fields => this.onSubmit(fields)} />
+        <Population statisticsList={this.state.statisticsList}
+          filterStatisticsList={this.state.filterStatisticsList}
+          updateData={this.updateStatistics}
           PopChange={this.PopChange}
           PopSubmit={this.PopSubmit}
-        />
-        <Languages
-          statisticsList={this.state.statisticsList}
+          inputBoxPopu={this.state.inputBoxPopu.value} />
+        <Languages statisticsList={this.state.statisticsList}
+          filterStatisticsList={this.state.filterStatisticsList}
+          updateData={this.updateStatistics}
           inputBoxLang={this.state.inputBoxLang.value}
           Change={this.Change}
-          Submit={this.Submit}
-        />
+          Submit={this.Submit} />
       </div>
     );
   }
