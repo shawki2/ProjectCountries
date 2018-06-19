@@ -6,27 +6,12 @@ class Languages extends React.Component {
     const languagesList = this.props.filterStatisticsList
     .filter(list => list.country.includes(this.props.inputBoxLang))
     .reduce((result, item) => {
-      const languages = item.languages.split(", ");
+      const languages = item.languages.split(",");
       return result.concat(languages);
     }, []);
 
     return [...new Set(languagesList)];
-
-    // var languagesFilter = this.props.filterStatisticsList.map(
-    //   country => country.languages
-    // );
-    // var distinctLanguages = [...new Set(languagesFilter)]
-    // console.log("distinctLanguages: ",  distinctLanguages)
-    // return distinctLanguages
   }
-  getInputLang() {
-    var languagesFilter = this.props.statisticsList.filter(
-      list => list.country.includes(this.props.inputBoxLang.value)).map(country => country.languages);
-    var distinctLanguages = [...(new Set(languagesFilter))];
-    return distinctLanguages
-    //until here for languages companents
-  }
-
   render() {
     return (
       <div className="Languages">

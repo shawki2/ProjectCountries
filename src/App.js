@@ -20,7 +20,6 @@ class App extends Component {
     };
 
     loadData().then(data => {
-      console.log('data', data)
       this.setState(data);
     });
   }
