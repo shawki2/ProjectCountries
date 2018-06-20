@@ -4,7 +4,7 @@ import "./Languages.css";
 class Languages extends React.Component {
   getTotalLang() {
     const languagesList = this.props.filterStatisticsList
-    .filter(list => list.country.includes(this.props.inputBoxLang))
+    .filter(list => list.languages.includes(this.props.inputBoxLang))
     .reduce((result, item) => {
       const languages = item.languages.split(",");
       return result.concat(languages);
@@ -35,7 +35,7 @@ class Languages extends React.Component {
           </thead>
           <tbody>
             {this.props.filterStatisticsList
-            .filter(list => list.country.includes(this.props.inputBoxLang))
+            .filter(list => list.languages.includes(this.props.inputBoxLang))
               .sort((a, b) => b.languageCount - a.languageCount)
               .map((result, index) => (
                 <tr key={index}>
