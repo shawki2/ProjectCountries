@@ -6,6 +6,7 @@ function loadData() {
             return data.json();
         })
         .then(serverStatistics => {
+            var wholeCountries=serverStatistics.map(item=>item.name);
             const membersMatching = members.map(result => {
                 var countryInfo = serverStatistics.find(
                     serverResult => serverResult.name === result.country
@@ -36,6 +37,7 @@ function loadData() {
             return {
                 statisticsList: membersMatching,
                 filterStatisticsList: membersMatching,
+                wholeCountries:wholeCountries,
             };
         });
 }
