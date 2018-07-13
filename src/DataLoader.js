@@ -6,6 +6,7 @@ function loadData() {
             return data.json();
         })
         .then(serverStatistics => {
+            var wholeCountries=serverStatistics.map(item=>item.name);
             const membersMatching = members.map(result => {
                 var countryInfo = serverStatistics.find(
                     serverResult => serverResult.name === result.country
@@ -16,15 +17,14 @@ function loadData() {
                     );
                 }
                 let countryName = "";
-                if (countryInfo === undefined) {
-                    countryName = "Country Not Found";
+                if (countryInfo === undefined) {countryName = 0;
+                    countryInfo = { languages: [{ name: "Country Not Found" }] };
                 } else {
                     countryName = countryInfo.population;
                 }
                 let allLanguages, languageNames;
                 allLanguages = countryInfo.languages.map(lang => lang.name);
-                languageNames = allLanguages.join(", ");
-                console.log(languageNames);
+                languageNames = allLanguages.join(",");
                 return {
                     name: result.name,
                     country: result.country,
@@ -34,10 +34,10 @@ function loadData() {
                     regions: countryInfo.region
                 };
             });
-
             return {
                 statisticsList: membersMatching,
                 filterStatisticsList: membersMatching,
+                wholeCountries:wholeCountries,
             };
         });
 }

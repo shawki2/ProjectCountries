@@ -20,7 +20,6 @@ class App extends Component {
     };
 
     loadData().then(data => {
-      console.log('data', data)
       this.setState(data);
     });
   }
@@ -75,7 +74,7 @@ class App extends Component {
           filterStatisticsList={this.state.filterStatisticsList}
           updateData={this.updateStatistics} />
 
-         <Form onSubmit={fields => this.onSubmit(fields)} />
+         <Form onSubmit={fields => this.onSubmit(fields)} wholeCountries={this.state.wholeCountries} />
         <Population statisticsList={this.state.statisticsList}
           filterStatisticsList={this.state.filterStatisticsList}
           updateData={this.updateStatistics}

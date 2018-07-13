@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Statistic from "./Statistic";
 import "./Statistics.css";
-import people from "../data/members.js";
 
 class Statistics extends Component {
   constructor(props) {
@@ -23,7 +22,6 @@ class Statistics extends Component {
   getDistincMembers() {
     const newArray = this.props.filterStatisticsList;
     const distinctMembers = Array.from(new Set(newArray));
-    console.log('distinctMembers', distinctMembers)
 
     return distinctMembers
   }
@@ -39,26 +37,17 @@ class Statistics extends Component {
       person => person.regions.includes(region)
     )
     this.props.updateData(populationFilter);
-    console.log("selectedRigion", populationFilter);
     return populationFilter
   }
 
   render() {
-
-    console.log('this.props.filterStatisticsList', this.props.filterStatisticsList)
     var distinctRegions = this.getDistincRegions();
-    console.log('distinctRegions', distinctRegions.length)
-    var distincMembers = this.getDistincMembers();
-    console.log('distinctRegions', distincMembers.length)
-
     return (
       <div className="Statistics">
         <Statistic total={this.getDistincMembers().length} label="Total Members" />
         <Statistic
           total={this.getDistinctCountries().length}
-          label="Total Countries"
-        />
-
+          label="Total Countries"/>
         <div className="Region">
           <Statistic total={this.getDistincRegions().length} label="Total Regions" />
           <select onChange={(event) => this.setRegion(event)}>
